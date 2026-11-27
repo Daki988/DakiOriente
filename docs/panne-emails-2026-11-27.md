@@ -127,11 +127,21 @@ Obstacle à connaître : une planification `schedule` de GitHub Actions **ne se 
 par défaut du dépôt** (ici `claude/mcp-server-install-ewj59b`), et non sur la branche de travail. C'est
 aussi la raison pour laquelle `accreditations.yml` n'a jamais tourné.
 
-Deux voies possibles :
+**Mis en place le 27/11/2026** : `.github/workflows/surveillance.yml`, **sur la branche par défaut**
+`claude/mcp-server-install-ewj59b` (seul fichier ajouté à cette branche ; elle n'avait aucun `.github/`).
 
-- placer un petit workflow planifié sur la branche par défaut, qui appelle `/api/sante` toutes les heures
-  et ouvre un ticket GitHub si `email` n'est pas `ok` (un ticket, pas un e-mail : quand les e-mails sont en
-  panne, alerter par e-mail ne sert à rien) ;
-- ou afficher l'état dans le back-office, pour que l'équipe le voie en se connectant.
+Toutes les heures à la minute 37 — décalée pour éviter l'embouteillage de l'heure pile — il appelle
+`/api/sante/` avec un User-Agent de navigateur (l'hébergement refuse les autres, sinon on mesurerait le
+filtre anti-robots et non l'application) et vérifie deux choses : le code de réponse, et l'état des
+e-mails.
 
-À décider : les deux sont rapides, mais la première demande d'écrire sur la branche par défaut.
+En cas de problème il **ouvre un ticket GitHub**, le commente tant que la panne dure, et **le ferme tout
+seul** au premier contrôle réussi. Un ticket et non un e-mail : la panne surveillée est précisément celle
+de l'envoi des e-mails.
+
+Première exécution manuelle : « Rien à signaler : site en 200, e-mails « inconnu » » — `inconnu` parce que
+la version déployée ne renvoie pas encore le champ `email`. Dès que la nouvelle version sera en ligne, le
+ticket s'ouvrira de lui-même, ce qui vaudra preuve que le détecteur fonctionne.
+
+À surveiller : ce fichier vit sur une branche qui n'est pas la branche de travail. Si la branche par défaut
+du dépôt change, il faudra l'y déplacer.
