@@ -1,0 +1,85 @@
+# Surveillance de navigoal.net, toutes les heures.
+#
+# Pourquoi ce fichier est sur la branche par défaut : une planification « schedule » de GitHub Actions ne se
+# déclenche QUE sur la branche par défaut du dépôt. Placé ailleurs, il ne tournerait jamais (c'est ce qui est
+# arrivé à accreditations.yml).
+#
+# Pourquoi un ticket et pas un e-mail : la panne qu'on surveille est justement celle de l'envoi d'e-mails
+# (27/11/2026, mot de passe SMTP refusé, plus rien ne partait pendant des jours sans que personne le voie).
+name: Surveillance
+
+on:
+  schedule:
+    - cron: "37 * * * *"   # toutes les heures ; minute décalée pour éviter l'embouteillage de l'heure pile
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  sante:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Interroger /api/sante
+        id: sante
+        run: |
+          # L'hébergement refuse les requêtes sans User-Agent de navigateur : sans cet en-tête, on mesurerait
+          # le filtre anti-robots et non l'application.
+          UA='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0 Safari/537.36'
+          rep=$(curl -s -m 45 -A "$UA" -w '\n%{http_code}' https://navigoal.net/api/sante/ || true)
+          corps=$(printf '%s' "$rep" | head -1); code=$(printf '%s' "$rep" | tail -1)
+          mail=$(printf '%s' "$corps" | sed -n 's/.*"email":"\([^"]*\)".*/\1/p')
+          echo "Réponse $code — $corps"
+          probleme=""
+          [ "$code" != 200 ] && probleme="le site ne répond pas (code $code)"
+          [ -z "$probleme" ] && [ -n "$mail" ] && [ "$mail" != "ok" ] && probleme="les e-mails ne partent plus (état « $mail »)"
+          {
+            echo "probleme=$probleme"
+            echo "code=$code"
+            echo "mail=${mail:-inconnu}"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Ouvrir ou fermer le ticket d'alerte
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PROBLEME: ${{ steps.sante.outputs.probleme }}
+          CODE: ${{ steps.sante.outputs.code }}
+          MAIL: ${{ steps.sante.outputs.mail }}
+          REPO: ${{ github.repository }}
+        run: |
+          titre="Alerte surveillance : navigoal.net"
+          # Un seul ticket ouvert à la fois : on le retrouve par son titre exact.
+          num=$(gh issue list --repo "$REPO" --state open --search "\"$titre\" in:title" --json number,title \
+                  --jq "[.[] | select(.title == \"$titre\")] | .[0].number // empty")
+
+          if [ -n "$PROBLEME" ]; then
+            corps=$(printf '%s\n' \
+              "La surveillance horaire a trouvé un problème sur https://navigoal.net : **$PROBLEME**." \
+              "" \
+              "- \`/api/sante/\` : code **$CODE**, e-mails : **$MAIL**" \
+              "- Relevé le $(date -u '+%d/%m/%Y à %H:%M UTC')" \
+              "" \
+              "Si l'état des e-mails n'est pas \`ok\`, plus aucun message ne part : bienvenue, codes de vérification," \
+              "notifications de candidature, rappels de rendez-vous et d'échéances." \
+              "" \
+              "Marche à suivre : \`docs/panne-emails-2026-11-27.md\`." \
+              "" \
+              "Ce ticket se fermera tout seul au prochain contrôle réussi.")
+            if [ -n "$num" ]; then
+              gh issue comment "$num" --repo "$REPO" --body "Toujours en panne : $PROBLEME (code $CODE, e-mails $MAIL), le $(date -u '+%d/%m %H:%M UTC')."
+              echo "Ticket #$num mis à jour."
+            else
+              gh issue create --repo "$REPO" --title "$titre" --body "$corps"
+              echo "Ticket ouvert."
+            fi
+            echo "::error::$PROBLEME"
+            exit 1
+          fi
+
+          if [ -n "$num" ]; then
+            gh issue close "$num" --repo "$REPO" --comment "Tout est revenu à la normale : site en 200, e-mails « $MAIL », le $(date -u '+%d/%m %H:%M UTC')."
+            echo "Ticket #$num fermé."
+          else
+            echo "Rien à signaler : site en 200, e-mails « $MAIL »."
+          fi
